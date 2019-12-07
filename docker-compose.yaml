@@ -1,0 +1,23 @@
+version: '3'
+services:
+  api:
+    build: .
+    ports:
+      - "${API_PORT}:${API_PORT}"
+    depends_on: 
+      - mongodb
+    env_file:
+      - .env
+    volumes:
+      - ./:/usr/src/app
+    
+  mongodb:
+    image: mongo:3.4-xenial
+    ports:
+      - "${MONGODB_PORT}:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGODB_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGODB_DATABASE}
+    volumes: 
+      - ./data/db:/data/db
