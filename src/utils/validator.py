@@ -1,4 +1,5 @@
 import logging
+import re
 
 from src.error_handlers import api_exception
 
@@ -83,6 +84,31 @@ def has_valid_str_length(data, minimum_length=1, maximum_length=255):
         str_length = len(data)
 
         return minimum_length <= str_length <= maximum_length
+    except Exception as e:
+        logging.error(e)
+        raise e
+
+
+def is_valid_email(email):
+    """ Validate the email format.
+
+    Parameters
+    ----------
+    email: str
+        the string data to be checked.
+
+    Returns
+    -------
+    Boolean
+
+    Raises
+    ------
+    Exception:
+        for any uncaught syntax error.
+    """
+    try:
+        email_pattern = r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)"
+        return bool(re.match(email_pattern, email))
     except Exception as e:
         logging.error(e)
         raise e
