@@ -1,5 +1,6 @@
 from src.error_handlers.api_exception import (MissingRequiredFields,
-                                              RequestParamException)
+                                              RequestParamException,
+                                              ResourceNotFound)
 from src.constants import http_status_code
 
 from flask import Blueprint, jsonify
@@ -26,6 +27,15 @@ def request_param_exception(error):
         "results": []
     }
     return jsonify(response), http_status_code.UNPROCESSABLE_ENTITY
+
+@api_error_handler.app_errorhandler(ResourceNotFound)
+def resource_not_found(error):
+    response = {
+        "success": False,
+        "errors": error.args[0],
+        "results": []
+    }
+    return jsonify(response), http_status_code.NOT_FOUND
 
 
 @api_error_handler.app_errorhandler(Exception)
