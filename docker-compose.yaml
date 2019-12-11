@@ -12,12 +12,13 @@ services:
       - ./:/usr/src/app
     
   mongodb:
-    image: mongo:3.4-xenial
+    image: mongo:4.0.13-xenial
     ports:
       - "${MONGODB_PORT}:27017"
     environment:
-      MONGO_INITDB_ROOT_USERNAME: ${MONGODB_USER}
-      MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_PASSWORD}
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
       MONGO_INITDB_DATABASE: ${MONGODB_DATABASE}
     volumes: 
       - ./data/db:/data/db
+      - ./src/seeder/init-db/:/docker-entrypoint-initdb.d
