@@ -1,5 +1,7 @@
 import logging
 
+from src.constants.misc import GenericConstants
+
 
 def data_cleanup(data):
     """ Clean data inside the data parameter.
@@ -74,6 +76,38 @@ def remove_unnecessary_keys(valid_keys, data):
             del data[unnecessary_key]
 
         return data
+    except Exception as e:
+        logging.error(e)
+        raise e
+
+
+def to_bool(data):
+    """ Convert data value to boolean data.
+
+    Parameters
+    ----------
+    data: str, list, float
+        the data to be coverted to boolean.
+
+    Returns
+    -------
+    Boolean
+        the converted boolean data.
+
+    Raises
+    ------
+    ValueError:
+        for data value that is not in the truthy and falsy values.
+    Exception:
+        for any uncaught syntax error.
+    """
+    try:
+        if data in set(GenericConstants.TRUTHY_VALUES):
+            return True
+        elif data in set(GenericConstants.FALSY_VALUES):
+            return False
+
+        raise ValueError(f'Invalid data for boolean convertion: {data}')
     except Exception as e:
         logging.error(e)
         raise e
