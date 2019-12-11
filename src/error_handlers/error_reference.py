@@ -4,6 +4,12 @@ from src.constants.misc import GenericConstants, UserConstants
 class GenericError:
 
     @staticmethod
+    def NOT_FOUND(resource):
+        return {
+            'error': f"Resource not found: {resource}"
+        }
+
+    @staticmethod
     def INVALID_STRING_LENGTH(data):
         return {
             'error': f"""Value length must be between \
