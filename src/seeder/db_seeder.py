@@ -6,9 +6,9 @@ from src.initializer import _initialize_db
 try:
     _initialize_db()
     users = [
-        User(name='John Doe', email='johndoe@email.com', user_type=1),
+        User(name='John Doe', email='johndoe@email.com', user_type='user'),
         User(name='Doe Organization', email='doe@organization.com',
-             user_type=2, description="sample doe organization description"),
+             user_type='org', description="sample doe organization description"),
     ]
     User.objects.bulk_create(users)
     logging.info("Successfully seeded user data.")
